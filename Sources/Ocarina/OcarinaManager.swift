@@ -94,7 +94,8 @@ public class OcarinaManager: NSObject {
         var request = URLRequest(url: url)
         request.cachePolicy = .reloadIgnoringLocalCacheData
         
-        let userAgent = self.userAgent ?? "Ocarinabot/\(Int(OcarinaVersionNumber))"
+//		let userAgent = self.userAgent ?? "Ocarinabot/\(Int(OcarinaVersionNumber))"
+		let userAgent = self.userAgent ?? "Ocarinabot/\(Int(1))"
         request.setValue(userAgent, forHTTPHeaderField: "User-agent")
         
         request.setValue("text/html", forHTTPHeaderField: "Accept")

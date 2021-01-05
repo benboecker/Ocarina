@@ -25,7 +25,8 @@ SOFTWARE.
 import Foundation
 import CoreFoundation
 
-import libxmlKanna
+//import libxmlKanna
+import libxml2
 
 extension String.Encoding {
     var IANACharSetName: String? {

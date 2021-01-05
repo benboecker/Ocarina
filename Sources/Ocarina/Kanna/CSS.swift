@@ -24,7 +24,8 @@ SOFTWARE.
 */
 import Foundation
 
-import libxmlKanna
+//import libxmlKanna
+import libxml2
 
 typealias AKRegularExpression  = NSRegularExpression
 #if os(Linux) && swift(>=4)
