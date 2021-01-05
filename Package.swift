@@ -25,7 +25,7 @@ let package = Package(
 		),
         .testTarget(
             name: "OcarinaTests",
-            dependencies: ["Ocarina"]
+            dependencies: ["Ocarina"],
 			path: "Tests"),
     ]
 )
