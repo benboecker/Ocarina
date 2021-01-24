@@ -22,7 +22,11 @@ let package = Package(
         .target(
             name: "Ocarina",
             dependencies: [],
-			path: "Sources"
+			path: "Sources",
+			exclude: [
+				"Docs/",
+				"OcarinaExample/",
+			]
 		),
         .testTarget(
             name: "OcarinaTests",
