@@ -11,7 +11,7 @@ import AVFoundation
 
 public enum URLInformationType: String {
     
-    static let imageFileMimeTypes: [String] = ["image/bmp",
+	public static let imageFileMimeTypes: [String] = ["image/bmp",
                                                "image/x-windows-bmp",
                                                "image/gif", "image/jpeg",
                                                "image/pjpeg",
@@ -20,7 +20,7 @@ public enum URLInformationType: String {
                                                "image/tiff",
                                                "image/x-tiff"]
     
-    static let documentFileMimeTypes: [String] = ["application/vnd.ms-powerpoint",
+	public static let documentFileMimeTypes: [String] = ["application/vnd.ms-powerpoint",
                                                   "application/mspowerpoint",
                                                   "application/mspowerpoint",
                                                   "application/x-mspowerpoint",
@@ -38,10 +38,10 @@ public enum URLInformationType: String {
                                                   "text/richtext",
                                                   "application/pdf"]
     
-    static let htmlFileMimeTypes: [String] =  ["text/html",
+	public static let htmlFileMimeTypes: [String] =  ["text/html",
                                                "text/x-server-parsed-html"]
     
-    static let archiveFileMimeTypes: [String] = ["application/x-compress",
+	public static let archiveFileMimeTypes: [String] = ["application/x-compress",
                                                  "application/x-compressed",
                                                  "application/x-zip-compressed",
                                                  "application/zip",
@@ -69,11 +69,11 @@ public enum URLInformationType: String {
     case fileArchive = "file.archive"
     case fileOther = "file.other"
     
-    var isFileURL: Bool {
+    public var isFileURL: Bool {
         return self.rawValue.hasPrefix("file")
     }
     
-    static func type(for typeString: String) -> URLInformationType? {
+	public static func type(for typeString: String) -> URLInformationType? {
         if let type = URLInformationType(rawValue: typeString) {
             return type
         }
@@ -101,7 +101,7 @@ public enum URLInformationType: String {
         }
     }
     
-    static func type(forMimeType mimeType: String) -> URLInformationType {
+	public static func type(forMimeType mimeType: String) -> URLInformationType {
         let audioFileMimeTypes = AVURLAsset.audiovisualMIMETypes().filter({ (type) -> Bool in
             return type.hasPrefix("audio/")
         })
