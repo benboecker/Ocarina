@@ -145,7 +145,6 @@ public class OcarinaManager: NSObject {
         return urlInformation
     }
     
-    
     private func completeRequestsWithError(_ error: Error, for url: URL) {
         DispatchQueue.main.async {
             let requests = self.requests(for: url)
@@ -223,6 +222,12 @@ extension OcarinaManager: URLSessionDataDelegate {
     
     fileprivate func taskDidComplete(_ task: URLSessionTask, data: Data?, error: Error?, response: HTTPURLResponse?) {
         guard let originalURL = self.requests(for: task).first?.url else {
+			//We don't have a valid response, we end it here! If we don't have a response at all, we will just continue
+			if let url = task.originalRequest?.url {
+				let newError = NSError(domain: "co.awkward.ocarina", code: 500, userInfo: [NSLocalizedDescriptionKey: "Invalid response received from URL"])
+				self.completeRequestsWithError(newError, for: url)
+			}
+
             return
         }
         let url = task.currentRequest?.url ?? originalURL
