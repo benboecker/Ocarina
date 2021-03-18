@@ -129,7 +129,9 @@ public enum URLInformationType: String {
 }
 
 /// A model containing information about a URL
-public class URLInformation: NSObject, NSCoding {
+public class URLInformation: NSObject, NSSecureCoding {
+	public static var supportsSecureCoding: Bool = true
+	
     
     /// The original URL the information was requested for.
     public let originalURL: URL
