@@ -14,7 +14,7 @@ import XCTest
 class URLInformationCodingTests: XCTestCase {
 
 	func testStoreURLInfo() {
-		guard let url = URL(string: "https://www.nytimes.com/interactive/2017/04/02/technology/uber-drivers-psychological-tricks.html") else {
+		guard let url = URL(string: "https://apps.apple.com/de/app/bookmarks-deine-lesezeichen/id1503569422") else {
 			XCTFail("Invalid URL")
 			return
 		}

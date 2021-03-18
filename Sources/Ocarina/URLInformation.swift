@@ -268,8 +268,8 @@ public class URLInformation: NSObject, NSSecureCoding {
 	
     public required init?(coder aDecoder: NSCoder) {
 		
-        guard let originalURL = aDecoder.decodeObject(of: [NSURL.self], forKey: "originalURL") as? URL,
-			  let url = aDecoder.decodeObject(of: [NSURL.self], forKey: "url") as? URL else {
+		guard let originalURL = aDecoder.decodeObject(of: NSURL.self, forKey: "originalURL") as URL?,
+			  let url = aDecoder.decodeObject(of: NSURL.self, forKey: "url") as URL? else {
             return nil
         }
 		
@@ -277,11 +277,11 @@ public class URLInformation: NSObject, NSSecureCoding {
         self.url = url
         self.title = aDecoder.decodeObject(forKey: "title") as? String
         self.descriptionText = aDecoder.decodeObject(forKey: "description") as? String
-        self.imageURL = aDecoder.decodeObject(of: [NSURL.self], forKey: "imageURL") as? URL
-        self.imageSize = aDecoder.decodeCGSize(forKey: "imageSize")
-        self.appleTouchIconURL = aDecoder.decodeObject(of: [NSURL.self], forKey: "appleTouchIconURL") as? URL
-        self.faviconURL = aDecoder.decodeObject(of: [NSURL.self], forKey: "faviconURL") as? URL
-        self.twitterCard = aDecoder.decodeObject(of: [TwitterCardInformation.self], forKey: "twitterCard") as? TwitterCardInformation
+		self.imageURL = aDecoder.decodeObject(of: NSURL.self, forKey: "imageURL") as URL?
+		self.imageSize = aDecoder.decodeObject(of: NSValue.self, forKey: "imageSize")?.cgSizeValue
+		self.appleTouchIconURL = aDecoder.decodeObject(of: NSURL.self, forKey: "appleTouchIconURL") as URL?
+		self.faviconURL = aDecoder.decodeObject(of: NSURL.self, forKey: "faviconURL") as URL?
+		self.twitterCard = aDecoder.decodeObject(of: TwitterCardInformation.self, forKey: "twitterCard")
         if let typeString = aDecoder.decodeObject(forKey: "type") as? String {
             self.type = URLInformationType(rawValue: typeString) ?? URLInformationType.website
         } else {
@@ -300,7 +300,7 @@ public class URLInformation: NSObject, NSSecureCoding {
         aCoder.encode(self.faviconURL, forKey: "faviconURL")
 		aCoder.encode(self.twitterCard, forKey: "twitterCard")
         aCoder.encode(self.type.rawValue, forKey: "type")
-
+		
     }
     
     public static func ==(lhs: URLInformation, rhs: URLInformation) -> Bool {
