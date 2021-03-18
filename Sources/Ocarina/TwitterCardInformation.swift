@@ -31,7 +31,9 @@ public enum TwitterCardType: String {
 }
 
 /// A model containing twitter card information for a URL.
-public class TwitterCardInformation: NSCoding {
+public class TwitterCardInformation: NSObject, NSSecureCoding {
+	public static var supportsSecureCoding: Bool = true
+	
     
     /// The contents of the twitter:url tag of the link.
     public var url: URL?
@@ -88,10 +90,10 @@ public class TwitterCardInformation: NSCoding {
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        self.url = aDecoder.decodeObject(forKey: "url") as? URL
+        self.url = aDecoder.decodeObject(of: [NSURL.self], forKey: "url") as? URL
         self.title = aDecoder.decodeObject(forKey: "title") as? String
         self.descriptionText = aDecoder.decodeObject(forKey: "description") as? String
-        self.imageURL = aDecoder.decodeObject(forKey: "imageURL") as? URL
+        self.imageURL = aDecoder.decodeObject(of: [NSURL.self],forKey: "imageURL") as? URL
         self.account = aDecoder.decodeObject(forKey: "account") as? String
         if let typeString = aDecoder.decodeObject(forKey: "cardType") as? String {
             self.cardType = TwitterCardType(rawValue: typeString) ?? TwitterCardType.other
