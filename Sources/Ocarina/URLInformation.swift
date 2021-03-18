@@ -134,11 +134,11 @@ public class URLInformation: NSObject, NSSecureCoding {
 	
     
     /// The original URL the information was requested for.
-    public let originalURL: URL
+    public let originalURL: URL?
     
     /// The contents of the og:url tag of the link.
     /// If the Open Graph URL is not present, this will match the original or have the redirect URL if a redirect occured.
-    public var url: URL
+    public var url: URL?
     
     /// The contents of the og:title tag of the link.
     /// If og:title is not present, there is a fallback to the `<title>` html tag.
@@ -252,7 +252,7 @@ public class URLInformation: NSObject, NSSecureCoding {
         }
     }
     
-	public init(originalURL: URL, url: URL?, title: String? = nil, descriptionText: String? = nil, imageURL: URL? = nil, imageSize: CGSize? = nil, faviconURL: URL? = nil, appleTouchIconURL: URL? = nil, twitterCard: TwitterCardInformation? = nil, type: URLInformationType = .website) {
+	public init(originalURL: URL? = nil, url: URL? = nil, title: String? = nil, descriptionText: String? = nil, imageURL: URL? = nil, imageSize: CGSize? = nil, faviconURL: URL? = nil, appleTouchIconURL: URL? = nil, twitterCard: TwitterCardInformation? = nil, type: URLInformationType = .website) {
 		self.originalURL = originalURL
 		self.url = url ?? originalURL
 		self.title = title
