@@ -252,6 +252,20 @@ public class URLInformation: NSObject, NSSecureCoding {
         }
     }
     
+	public init(originalURL: URL, url: URL?, title: String? = nil, descriptionText: String? = nil, imageURL: URL? = nil, imageSize: CGSize? = nil, faviconURL: URL? = nil, appleTouchIconURL: URL? = nil, twitterCard: TwitterCardInformation? = nil, type: URLInformationType = .website) {
+		self.originalURL = originalURL
+		self.url = url ?? originalURL
+		self.title = title
+		self.descriptionText = descriptionText
+		self.imageURL = imageURL
+		self.imageSize = imageSize
+		self.faviconURL = faviconURL
+		self.appleTouchIconURL = appleTouchIconURL
+		self.twitterCard = twitterCard
+		self.type = type
+	}
+
+	
     public required init?(coder aDecoder: NSCoder) {
 		
         guard let originalURL = aDecoder.decodeObject(of: [NSURL.self], forKey: "originalURL") as? URL,
