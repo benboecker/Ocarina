@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-public enum URLInformationType: String {
+public enum URLInformationType: String, Codable {
     
 	public static let imageFileMimeTypes: [String] = ["image/bmp",
                                                "image/x-windows-bmp",
@@ -129,10 +129,7 @@ public enum URLInformationType: String {
 }
 
 /// A model containing information about a URL
-public class URLInformation: NSObject, NSSecureCoding {
-	public static var supportsSecureCoding: Bool = true
-	
-    
+public struct URLInformation: Codable {
     /// The original URL the information was requested for.
     public let originalURL: URL?
     
@@ -265,46 +262,19 @@ public class URLInformation: NSObject, NSSecureCoding {
 		self.type = type
 	}
 
-	
-    public required init?(coder aDecoder: NSCoder) {
-		
-		guard let originalURL = aDecoder.decodeObject(of: NSURL.self, forKey: "originalURL") as URL?,
-			  let url = aDecoder.decodeObject(of: NSURL.self, forKey: "url") as URL? else {
-            return nil
-        }
-		
-        self.originalURL = originalURL
-        self.url = url
-        self.title = aDecoder.decodeObject(forKey: "title") as? String
-        self.descriptionText = aDecoder.decodeObject(forKey: "description") as? String
-		self.imageURL = aDecoder.decodeObject(of: NSURL.self, forKey: "imageURL") as URL?
-		self.imageSize = aDecoder.decodeObject(of: NSValue.self, forKey: "imageSize")?.cgSizeValue
-		self.appleTouchIconURL = aDecoder.decodeObject(of: NSURL.self, forKey: "appleTouchIconURL") as URL?
-		self.faviconURL = aDecoder.decodeObject(of: NSURL.self, forKey: "faviconURL") as URL?
-		self.twitterCard = aDecoder.decodeObject(of: TwitterCardInformation.self, forKey: "twitterCard")
-        if let typeString = aDecoder.decodeObject(forKey: "type") as? String {
-            self.type = URLInformationType(rawValue: typeString) ?? URLInformationType.website
-        } else {
-            self.type = URLInformationType.website
-        }
-    }
-    
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.originalURL, forKey: "originalURL")
-        aCoder.encode(self.url, forKey: "url")
-        aCoder.encode(self.title, forKey: "title")
-        aCoder.encode(self.descriptionText, forKey: "description")
-        aCoder.encode(self.imageURL, forKey: "imageURL")
-        aCoder.encode(self.imageSize, forKey: "imageSize")
-        aCoder.encode(self.appleTouchIconURL, forKey: "appleTouchIconURL")
-        aCoder.encode(self.faviconURL, forKey: "faviconURL")
-		aCoder.encode(self.twitterCard, forKey: "twitterCard")
-        aCoder.encode(self.type.rawValue, forKey: "type")
-		
-    }
-    
-    public static func ==(lhs: URLInformation, rhs: URLInformation) -> Bool {
+	public static func ==(lhs: URLInformation, rhs: URLInformation) -> Bool {
         return lhs.url == rhs.url
     }
     
+	enum CodingKeys: String, CodingKey {
+		case originalURL
+		case url
+		case title
+		case descriptionText
+		case imageURL
+		case imageSize
+		case faviconURL
+		case appleTouchIconURL
+		case type
+	}
 }

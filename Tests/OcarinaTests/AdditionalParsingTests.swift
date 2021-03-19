@@ -73,7 +73,7 @@ class AdditionalParsingTests: XCTestCase {
 extension AdditionalParsingTests: OcarinaManagerDelegate {
     
     func ocarinaManager(manager: OcarinaManager, doAdditionalParsingForInformation information: URLInformation, html: HTMLDocument?) -> URLInformation? {
-        let newInformation = information
+        var newInformation = information
         
         // Spotify redirects to a browser-not-supported url. So we use the original URL
         if information.originalURL?.host == "play.spotify.com" {

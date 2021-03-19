@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public enum TwitterCardType: String {
+public enum TwitterCardType: String, Codable {
     case summary = "summary"
     case summaryWithLargeImage = "summary_large_image"
     case app = "app"
@@ -31,7 +31,7 @@ public enum TwitterCardType: String {
 }
 
 /// A model containing twitter card information for a URL.
-public class TwitterCardInformation: NSObject, NSSecureCoding {
+public struct TwitterCardInformation: Codable {
 	public static var supportsSecureCoding: Bool = true
 	
     
@@ -89,26 +89,8 @@ public class TwitterCardInformation: NSObject, NSSecureCoding {
         }
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        self.url = aDecoder.decodeObject(of: [NSURL.self], forKey: "url") as? URL
-        self.title = aDecoder.decodeObject(forKey: "title") as? String
-        self.descriptionText = aDecoder.decodeObject(forKey: "description") as? String
-        self.imageURL = aDecoder.decodeObject(of: [NSURL.self],forKey: "imageURL") as? URL
-        self.account = aDecoder.decodeObject(forKey: "account") as? String
-        if let typeString = aDecoder.decodeObject(forKey: "cardType") as? String {
-            self.cardType = TwitterCardType(rawValue: typeString) ?? TwitterCardType.other
-        } else {
-            self.cardType = TwitterCardType.other
-        }
-    }
-    
-    public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.url, forKey: "url")
-        aCoder.encode(self.title, forKey: "title")
-        aCoder.encode(self.descriptionText, forKey: "description")
-        aCoder.encode(self.imageURL, forKey: "imageURL")
-        aCoder.encode(self.account, forKey: "account")
-        aCoder.encode(self.cardType.rawValue, forKey: "cardType")
-    }
-    
+	enum CodingKeys: String, CodingKey {
+		case url, title, descriptionText, imageURL, cardType, account
+	}
+	
 }

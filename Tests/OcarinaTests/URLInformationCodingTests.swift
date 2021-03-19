@@ -28,10 +28,10 @@ class URLInformationCodingTests: XCTestCase {
 			}
 
 			do {
-				let data = try NSKeyedArchiver.archivedData(withRootObject: urlInformation, requiringSecureCoding: true)
+				let data = try JSONEncoder().encode(urlInformation)
 				
 				do {
-					let _ = try NSKeyedUnarchiver.unarchivedObject(ofClass: URLInformation.self, from: data as Data)
+					let _ = try JSONDecoder().decode(URLInformation.self, from: data)
 					expectation.fulfill()
 				} catch {
 					XCTFail("Failed to transform `Data` to `URLInformation`. \(error)")
