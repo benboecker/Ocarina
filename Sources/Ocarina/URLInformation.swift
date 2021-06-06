@@ -201,15 +201,18 @@ public struct URLInformation: Codable {
             }
             
 			if let urlString = html.xpath("//meta[(@property|@name)=\"og:url\"]/@content").first?.text, !urlString.isEmpty {
-                self.url = URL(string: urlString)!
+				let trimmed = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.url = URL(string: trimmed)!
 			} else {
 				self.url = url
 			}
 			            
             if let imageURLString = html.xpath("//meta[(@property|@name)=\"og:image\"]/@content").first?.text {
-                self.imageURL = URL(string: imageURLString, relativeTo: url)
+				let trimmed = imageURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.imageURL = URL(string: trimmed, relativeTo: url)
             } else if let imageURLString = html.xpath("//meta[(@property|@name)=\"thumbnail\"]/@content").first?.text {
-                self.imageURL = URL(string: imageURLString, relativeTo: url)
+				let trimmed = imageURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.imageURL = URL(string: trimmed, relativeTo: url)
             }
             
             if let imageWidthString = html.xpath("//meta[(@property|@name)=\"og:image:width\"]/@content").first?.text,
@@ -222,17 +225,22 @@ public struct URLInformation: Codable {
             }
             
             if let faviconURLString = html.xpath("/html/head/link[@rel=\"shortcut icon\"]/@href").first?.text {
-                self.faviconURL = URL(string: faviconURLString, relativeTo: url)
+				let trimmed = faviconURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+				self.faviconURL = URL(string: trimmed, relativeTo: url)
             } else if let faviconURLString = html.xpath("/html/head/link[@rel=\"icon\"]/@href").first?.text {
-                self.faviconURL = URL(string: faviconURLString, relativeTo: url)
+				let trimmed = faviconURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+                self.faviconURL = URL(string: trimmed, relativeTo: url)
             }
             
             if let appleTouchIconURLString = html.xpath("/html/head/link[@rel=\"apple-touch-icon\" and not(@sizes)]/@href").first?.text {
-                self.appleTouchIconURL = URL(string: appleTouchIconURLString, relativeTo: url)
+				let trimmed = appleTouchIconURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+				self.appleTouchIconURL = URL(string: trimmed, relativeTo: url)
             } else if let appleTouchIconURLString = html.xpath("/html/head/link[@rel=\"apple-touch-icon\" and @sizes=\"180x180\"]/@href").first?.text {
-                self.appleTouchIconURL = URL(string: appleTouchIconURLString, relativeTo: url)
+				let trimmed = appleTouchIconURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+				self.appleTouchIconURL = URL(string: trimmed, relativeTo: url)
             } else if let appleTouchIconURLString = html.xpath("/html/head/link[@rel=\"apple-touch-icon-precomposed\" and not(@sizes)]/@href").first?.text {
-                self.appleTouchIconURL = URL(string: appleTouchIconURLString, relativeTo: url)
+				let trimmed = appleTouchIconURLString.trimmingCharacters(in: .whitespacesAndNewlines)
+				self.appleTouchIconURL = URL(string: trimmed, relativeTo: url)
             }
             
             self.twitterCard = TwitterCardInformation(html: html)

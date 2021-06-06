@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol OcarinaManagerDelegate: class {
+public protocol OcarinaManagerDelegate: AnyObject {
     
     func ocarinaManager(manager: OcarinaManager, doAdditionalParsingForInformation information: URLInformation, html: HTMLDocument?) -> URLInformation?
     
