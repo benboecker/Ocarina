@@ -202,7 +202,7 @@ public struct URLInformation: Codable {
             
 			if let urlString = html.xpath("//meta[(@property|@name)=\"og:url\"]/@content").first?.text, !urlString.isEmpty {
 				let trimmed = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
-                self.url = URL(string: trimmed)!
+                self.url = URL(string: trimmed)
 			} else {
 				self.url = url
 			}
